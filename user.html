@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home page</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            height: 100vh;
+            width: 100wh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container{
+            height: 80%;
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
+        }
+        .image{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        img{
+            height: 450px;
+            width: auto;
+        }
+        .details{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image">
+            <img src="" alt="user image" id="profile-img">
+        </div>
+        <div class="details">
+            <h1 id="username"></h1>
+            <h2 id="bio"></h2>
+            <p id="email"></p>
+            <p id="followers"></p>
+        </div>
+    </div>
+    <script>
+        async function fetchUserData() {
+          const response = await fetch('http://localhost:5001/', {
+            method: 'GET',
+            credentials: 'include',
+          });
+      
+          const data = await response.json();
+          if (response.ok) {
+            document.getElementById('name').textContent = data.name;
+            document.getElementById('bio').textContent = data.bio;
+            document.getElementById('email').textContent = data.email;
+            document.getElementById('username').textContent = data.username;
+          } else {
+            alert('Authentication failed');
+            window.location.href = './login.html';
+          }
+        }
+      
+        fetchUserData();
+      </script>
+</body>
+</html>
